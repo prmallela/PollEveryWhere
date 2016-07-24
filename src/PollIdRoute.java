@@ -95,7 +95,7 @@ public class PollIdRoute implements TemplateViewRoute {
 
         }
         model.put("polls", polls);
-        return new ModelAndView(model, "polls.html");
+        return new ModelAndView(model, "listofpolls.html");
     };
 
     Route addChoice = (request, response) -> {

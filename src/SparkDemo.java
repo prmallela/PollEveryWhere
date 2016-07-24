@@ -20,18 +20,15 @@ public class SparkDemo {
         flyway.setDataSource(Config.JDBC_URL, "", "");
         flyway.clean(); // WARNING: deletes all tables and data!!!
         flyway.migrate();
-        externalStaticFileLocation("D:/GitLab/cs691s16/sparkdemo/resource/templates/");
+        externalStaticFileLocation("D:/MyGitHub/PollEveryWhere/resource/templates/");
         Class.forName("org.h2.Driver");
         Connection cn = DriverManager.getConnection(Config.JDBC_URL);
         HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
-        get("/hello", (request, response) -> {
-            counter++;
-            HashMap<String, String> data = new HashMap<String, String>();
-            data.put("counter", Integer.toString(counter));
-            return new ModelAndView(data, "hello.html");
-        }, new HandlebarsTemplateEngine());
         PollIdRoute pollRoutes = new PollIdRoute(cn);
+        get("/",(request, response) ->{
+            return new ModelAndView(null, "home.html");
+        },engine );
         get("/polls",pollRoutes.listPolls, engine);
         get("/polls/:pollID", pollRoutes, engine);
         post("/poll/:pollID/rm", pollRoutes.rmPoll);
@@ -39,47 +36,11 @@ public class SparkDemo {
         post("/poll/:pollId/choice/:choiceId/rm", pollRoutes.rmChoice);
         post("/poll/:pollId/choice/:choiceId/vote", pollRoutes.vote);
         post("/poll/question/addpoll",pollRoutes.addpoll);
-        get("/hello", new HelloRoute(), engine);
-
-        UserRoutes userRoutes = new UserRoutes(cn);
-       // get("/users", userRoutes.listPage, engine);
-      //  get("/user/:id", userRoutes.detailPage);
-
-       /* get("/base", (request, response) -> {
-            return new ModelAndView(null, "base.html");
-        }, engine);*/
 
         exception(NumberFormatException.class, (e, request, response) -> {
             response.status(404);
             response.body("Resource not found");
         });
-
-       /* get("/", (request, response) -> {
-            HashMap<String, String> data = new HashMap<String, String>();
-            String user = request.session().attribute("user");
-            data.put("username", user);
-            return new ModelAndView(data, "index.html");
-        }, engine); */
-
-        get("/",(request, response) ->{
-            return new ModelAndView(null, "Home.html");
-        },engine );
-
-        //Welcome Email
-        get("/wepolls", (request, response) -> {
-            HashMap<String, String> data = new HashMap<String, String>();
-            String email = request.session().attribute("email");
-            data.put("email", email);
-            return new ModelAndView(data, "wepolls.html");
-        }, engine);
-
-      /*  get("/login", (request, response) -> {
-            String user = request.queryParams("user");
-            request.session(true);
-            request.session().attribute("user", user);
-            response.redirect("/");
-            return null;
-        });*/
 
         //For User Registration
         post("/registration",(request, response) -> {
@@ -111,12 +72,12 @@ public class SparkDemo {
         } ),engine);
 
         get("/freg",((request, response) ->{
-            return new ModelAndView(null,"freg.html");
+            return new ModelAndView(null,"failreg.html");
         } ),engine);
 
 
         get("/sreg",((request, response) ->{
-            return new ModelAndView(null,"sreg.html");
+            return new ModelAndView(null,"sucreg.html");
         } ),engine);
 
 // FOR CHECKING EMAIL AND PASSWORD LOGIN GOTO /login
