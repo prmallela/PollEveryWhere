@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<style>
+    body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <form action="/logincheck" method="post" class="form-signin" onsubmit="return x()">
+        <h2 class="form-signin-heading">Please sign-in</h2>
+        <div class="form-group has-error has-feedback" id="emailc">
+            <label class="control-label" for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="E-Mail" aria-describedby="inputSuccess2Status">
+            <span class="glyphicon glyphicon-remove form-control-feedback" id="emailtick" aria-hidden="true"></span>
+            <span id="inputSuccess2Status" class="sr-only">(success)</span>
+        </div>
+
+        <div class="form-group has-error has-feedback" id="passwordc">
+            <label class="control-label" for="email">Password</label>
+            <input type="password" class="form-control" id="password" name="Password" aria-describedby="inputSuccess2Status1">
+            <span class="glyphicon glyphicon-remove form-control-feedback" id="passwordtick" aria-hidden="true"></span>
+            <span id="inputSuccess2Status1" class="sr-only">(success)</span>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button type="submit" id=submit class="btn btn-default btn-lg">Submit</button>
+        <a href="/registration">Registration</a>
+    </form>
+</div>
+</body>
+</html>
+
+<script>
+
+var email= document.getElementById("email");
+var password= document.getElementById("password");
+
+var vemail=/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
+
+function validateEmail(){
+ if(!vemail.test(email.value)){
+    document.getElementById("emailc").className = "form-group has-error has-feedback";
+    document.getElementById("emailtick").className = "glyphicon glyphicon-remove form-control-feedback";
+
+  } else{
+    document.getElementById("emailc").className = "form-group has-success has-feedback";
+    document.getElementById("emailtick").className = "glyphicon glyphicon-ok form-control-feedback";
+   }
+ }
+
+ function IsEmpty(){
+ if(password.value.length==0 ||password.value==""){
+    document.getElementById("passwordc").className = "form-group has-error has-feedback";
+    document.getElementById("passwordtick").className = "glyphicon glyphicon-remove form-control-feedback";
+ }
+ else{
+      document.getElementById("passwordc").className = "form-group has-success has-feedback";
+      document.getElementById("passwordtick").className = "glyphicon glyphicon-ok form-control-feedback";
+     }
+ }
+
+function x()
+{ if (document.getElementById("emailc").className == "form-group has-success has-feedback" && document.getElementById("passwordc").className == "form-group has-success has-feedback" ){
+       return true;}
+else {
+      alert("EMail or Password is Blank");
+       return false;}
+}
+
+email.onkeydown = validateEmail;
+email.onkeyup = validateEmail;
+email.onclick=validateEmail;
+password.onkeyup = IsEmpty;
+password.onkeydown = IsEmpty;
+password.onclick=IsEmpty;
+</script>

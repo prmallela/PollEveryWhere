@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Something went wrong.. Please try Again...</h2>
+<div class="container">
+    <form action="/registration" method="post" class="form-signin">
+        <h2 class="form-signin-heading">User Registration</h2>
+        <a href="/login">Login</a>
+        <div class="form-group has-error has-feedback" id="fnamec">
+            <label class="control-label" for="fname">First Name</label>
+            <input type="text" class="form-control" id="fname" name="fname" aria-describedby="inputSuccess2Status">
+            <span class="glyphicon glyphicon-remove form-control-feedback" id="fnametick" aria-hidden="true"></span>
+            <span id="inputSuccess2Status" class="sr-only">(success)</span>
+        </div>
+
+        <div class="form-group has-error has-feedback" id="lnamec">
+            <label class="control-label" for="lname">Last Name</label>
+            <input type="text" class="form-control" id="lname" name="lname" aria-describedby="inputSuccess2Status1">
+            <span class="glyphicon glyphicon-remove form-control-feedback" id="lnametick" aria-hidden="true"></span>
+            <span id="inputSuccess2Status1" class="sr-only">(success)</span>
+        </div>
+
+        <div class="form-group has-error has-feedback" id="emailc">
+            <label class="control-label" for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="E-Mail" aria-describedby="inputSuccess2Status2">
+            <span class="glyphicon glyphicon-remove form-control-feedback" id="emailtick" aria-hidden="true"></span>
+            <span id="inputSuccess2Status2" class="sr-only">(success)</span>
+        </div>
+
+        <div class="form-group has-error has-feedback" id="passwordc">
+            <label class="control-label" for="email">Password</label>
+            <input type="password" class="form-control" id="password" name="Password" aria-describedby="inputSuccess2Status3">
+            <span class="glyphicon glyphicon-remove form-control-feedback" id="passwordtick" aria-hidden="true"></span>
+            <span id="inputSuccess2Status3" class="sr-only">(success)</span>
+        </div>
+
+        <div class="form-group has-error has-feedback" id="vpasswordc">
+            <label class="control-label" for="email">Verify Password</label>
+            <input type="password" class="form-control" id="vpassword" name="VPassword" aria-describedby="inputSuccess2Status4">
+            <span class="glyphicon glyphicon-remove form-control-feedback" id="vpasswordtick" aria-hidden="true"></span>
+            <span id="inputSuccess2Status4" class="sr-only">(success)</span>
+        </div>
+
+
+        <button type="submit" id=submit class="btn btn-default btn-lg" >Submit</button>
+    </form>
+</div>
+</body>
+</html>
+<script>
+var password = document.getElementById("password");
+var vpassword = document.getElementById("vpassword");
+var email= document.getElementById("email");
+var vemail=/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
+var fname = document.getElementById("fname");
+var lname= document.getElementById("lname");
+
+function validatePassword(){
+  if(password.value != vpassword.value ||password.value=="") {
+    vpassword.setCustomValidity("Passwords Don't Match");
+    document.getElementById("passwordc").className = "form-group has-error has-feedback";
+    document.getElementById("passwordtick").className = "glyphicon glyphicon-remove form-control-feedback";
+    document.getElementById("vpasswordc").className = "form-group has-error has-feedback";
+    document.getElementById("vpasswordtick").className = "glyphicon glyphicon-remove form-control-feedback";
+
+   }else {
+    vpassword.setCustomValidity('');
+    document.getElementById("vpasswordc").className = "form-group has-success has-feedback";
+    document.getElementById("vpasswordtick").className = "glyphicon glyphicon-ok form-control-feedback";
+    document.getElementById("passwordc").className = "form-group has-success has-feedback";
+    document.getElementById("passwordtick").className = "glyphicon glyphicon-ok form-control-feedback";
+  }
+}
+
+function validateEmail(){
+ if(!vemail.test(email.value)){
+    email.setCustomValidity("Invalid E-Mail");
+    document.getElementById("emailc").className = "form-group has-error has-feedback";
+    document.getElementById("emailtick").className = "glyphicon glyphicon-remove form-control-feedback";
+  } else{
+    email.setCustomValidity('');
+    document.getElementById("emailc").className = "form-group has-success has-feedback";
+    document.getElementById("emailtick").className = "glyphicon glyphicon-ok form-control-feedback";
+   }
+
+}
+ function validatefnameIsEmpty(){
+ if(fname.value.lenth==0 || fname.value==""){
+    document.getElementById("fnamec").className = "form-group has-error has-feedback";
+    document.getElementById("fnametick").className = "glyphicon glyphicon-remove form-control-feedback";
+ }
+ else{
+    document.getElementById("fnamec").className = "form-group has-success has-feedback";
+    document.getElementById("fnametick").className = "glyphicon glyphicon-ok form-control-feedback";
+ }
+
+ }
+ function validatelnameIsEmpty(){
+ if(lname.value.lenth==0 || lname.value==""){
+    document.getElementById("lnamec").className = "form-group has-error has-feedback";
+    document.getElementById("lnametick").className = "glyphicon glyphicon-remove form-control-feedback";
+ }
+ else{
+    document.getElementById("lnamec").className = "form-group has-success has-feedback";
+    document.getElementById("lnametick").className = "glyphicon glyphicon-ok form-control-feedback";
+ }
+}
+
+fname.onkeyup= validatefnameIsEmpty;
+fname.onkeydown = validatefnameIsEmpty;
+fname.onclick = validatefnameIsEmpty;
+
+lname.onkeyup = validatelnameIsEmpty;
+lname.onkeydown = validatelnameIsEmpty;
+lname.onclick=validatelnameIsEmpty;
+
+email.onkeydown = validateEmail;
+email.onkeyup= validateEmail;
+email.onclick=validateEmail;
+
+password.onkeyup = validatePassword;
+password.onkeydown = validatePassword;
+password.onclick= validatePassword;
+
+vpassword.onkeyup = validatePassword;
+vpassword.onkeydown = validatePassword;
+vpassword.onclick=validatePassword;
+</script>

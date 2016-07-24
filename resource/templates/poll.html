@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<head>
+    <meta charset="UTF-8">
+    <title>POll</title>
+</head>
+
+{{#if name}}
+{{name}}
+<a href="/logout">Log out</a>
+<a href="/polls">Go Back to Polls</a>
+
+<body>
+<h1>{{question}}</h1>
+<div class="row">
+
+    <div class="col-sm-4">
+    <ul>
+    {{#each choices}}
+
+    <li>
+        <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                {{this.text}}
+            </div>
+            <div class="col-sm-1">
+                <form method="post" action="/poll/{{pollid}}/choice/{{this.id}}/vote">
+                    <button type="submit" class="btn btn-default btn-md">Vote</button>
+                </form>
+            </div>
+            <div class="col-sm-1">
+                <form method="post" action="/poll/{{pollid}}/choice/{{this.id}}/rm">
+                    <button type="submit" class="btn btn-default btn-md">Remove</button>
+                </form>
+            </div>
+        </div>
+        </div>
+    {{/each}}
+    </li>
+
+</ul>
+        </div>
+
+    <div class="col-sm-4">
+
+        <div id="chart_div" align="right"></div>
+    </div>
+
+    <div class="col-sm-3">
+        <table>
+            {{#each choices}}
+            <tr>
+                <td>{{this.text}}</td>
+                <td>{{this.votes}}</td>
+            </tr>
+            {{/each}}
+        </table>
+
+        <img src="{{chart}}">
+    </div>
+
+
+</div>
+
+<form method="post" action="/poll/{{pollid}}/addchoice">
+    <input type="text" name="choice">
+    <input type="submit" value="Add Choice">
+</form>
+
+{{else}}
+Generated at {{now}}.
+You are not logged in.
+<a href="/login">Log in</a>
+<a href="/registration">Registration</a>
+{{/if}}
+</body>
+</html>
+
+
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'choice');
+        data.addColumn('number', 'votes');
+        data.addRows([
+        {{#each choices}}
+        ['{{this.text}}',{{this.votes}}],
+        {{/each}}
+        ]);
+        var options = {'title':'Google Chart for Poll',
+                       'width':400,
+                       'height':300};
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>

@@ -1,0 +1,17 @@
+
+{{#partial "content"}}
+{{#if email}}
+Welcome, {{email}}.
+<a href="/logoute">Log out</a>
+
+<p>
+    <a href="/polls">List of poll questions</a>
+</p>
+{{else}}
+Generated at {{now}}.
+You are not logged in.
+
+<a href="/login">Log in</a>
+{{/if}}
+{{/partial}}
+{{>base.html}}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<head>
+    <meta charset="UTF-8">
+    <title>List of Polls</title>
+</head>
+<body>
+<h1>Poll List</h1>
+
+{{#if name}}
+Welcome, {{name}}.
+<a href="/logout">Log out</a>
+
+<ul class="list-group">
+    <li class="list-group-item">
+        {{#each polls}}
+        <a href="/polls/{{this.id}}">{{this.question}}</a>
+        <form method="post" action="/poll/{{this.id}}/rm">
+            <button type="submit" class="btn btn-default btn-sm">Remove</button>
+        </form>
+        {{/each}}
+    </li>
+
+</ul>
+<div class="container">
+    <form method="post" action="/poll/question/addpoll" class="form-signin">
+        <input class="form-control" name="Question" type="text">
+        <button type="submit" class="btn btn-default btn-md">Add</button>
+    </form>
+</div>
+
+
+{{else}}
+Generated at {{now}}.
+You are not logged in.
+<a href="/login">Log in</a>
+<a href="/registration">Registration</a>
+{{/if}}
+</body>
