@@ -67,7 +67,7 @@ public class SaltedHashedPassword {
         System.out.print("Create new password: ");
         String origPassword = reader.readLine();
         SaltedHashedPassword origHashed = generate(origPassword);
-        System.out.println(origHashed);
+        //System.out.println(origHashed);
         //////
         SaltedHashedPassword restoredHash = new SaltedHashedPassword(origHashed.toString());
         boolean ok = false;

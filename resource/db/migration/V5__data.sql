@@ -1,4 +1,3 @@
-INSERT INTO user (email, password) VALUES('ALICE@GMAIL.COM','PASSWORD123');
 INSERT INTO registration (fname,lname,email, password) VALUES('Param','Mallela','param@gmail.com','cf2cde4d5e5670c7ab32c37e57f8bbe3$2597e87451ceeb1cc8a7fbf306d74012c9ffe8f9f524223155011109b0abc38c');
 
 INSERT INTO POLL(QUESTION,TEXTMSG)

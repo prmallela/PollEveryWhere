@@ -18,7 +18,7 @@ public class SparkDemo {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Flyway flyway = new Flyway();
         flyway.setDataSource(Config.JDBC_URL, "", "");
-        flyway.clean(); // WARNING: deletes all tables and data!!!
+        //flyway.clean(); // WARNING: deletes all tables and data!!!
         flyway.migrate();
         externalStaticFileLocation("D:/MyGitHub/PollEveryWhere/resource/templates/");
         Class.forName("org.h2.Driver");
@@ -166,7 +166,7 @@ public class SparkDemo {
                     vc.setInt(1, Integer.parseInt(POLLID));
                     vc.setInt(2, Integer.parseInt(CHOICEID));
                     ResultSet res = vc.executeQuery();
-                    System.out.println(res);
+                   // System.out.println(res);
                     if (!res.wasNull()) {
                         PreparedStatement stm = cn.prepareStatement("INSERT INTO vote(choiceid, pollid) VALUES (?,?)");
                         stm.setInt(1, Integer.parseInt(CHOICEID));
